@@ -1,21 +1,21 @@
 import 'package:flutter/cupertino.dart';
 
 class ArticleProvider with ChangeNotifier {
-/*   String id;
-  String name; */
+  String? id;
+  String? name;
   Object? source;
-  String author;
-  String title;
-  String description;
-  String url;
-  String urlToImage;
-  String publishedAt;
+  String? author;
+  String? title;
+  String? description;
+  String? url;
+  String? urlToImage;
+  String? publishedAt;
   String? content;
   bool isFavorite;
 
   ArticleProvider({
-    /* required this.id,
-    required this.name, */
+    required this.id,
+    required this.name,
     required this.source,
     required this.author,
     required this.title,
@@ -31,4 +31,6 @@ class ArticleProvider with ChangeNotifier {
     isFavorite = !isFavorite;
     notifyListeners();
   }
+
+
 }

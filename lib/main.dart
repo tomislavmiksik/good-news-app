@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:news_app/screens/article_detail_screen.dart';
 import 'package:news_app/screens/home_screen.dart';
 import 'package:news_app/screens/profile_screen.dart';
 import 'package:news_app/screens/tabs_screen.dart';
@@ -17,9 +18,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        '/': (ctx) => TabsScreen(),
+        '/': (ctx) => const TabsScreen(),
         HomeScreen.routePath: (ctx) => HomeScreen(),
         ProfileScreen.routePath : (ctx) => ProfileScreen(),
+        ArticleDetailScreen.routePath : (ctx) => ArticleDetailScreen(),
       },
       initialRoute: '/',
       title: 'Flutter Demo',

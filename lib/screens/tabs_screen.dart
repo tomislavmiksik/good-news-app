@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:news_app/screens/profile_screen.dart';
 
 import 'home_screen.dart';
@@ -39,11 +40,12 @@ class _State extends State<TabsScreen> {
           currentIndex: _selectedIndex,
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.house),
+              icon: Icon(Icons.home),
               label: 'Home',
+              
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.contact_page),
+              icon: Icon(Icons.person),
               label: 'Profile',
             ),
           ],

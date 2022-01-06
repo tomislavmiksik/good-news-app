@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/providers/article_provider.dart';
 import 'package:news_app/screens/article_detail_screen.dart';
@@ -40,12 +43,37 @@ class ArticleTile extends StatelessWidget {
                   width: MediaQuery.of(context).size.width * 0.25,
 
                   //not a perfect solution, but it works
-                  child: Image.network(
+                  /* child: Image.network(
                     article.urlToImage.toString(),
                     fit: BoxFit.cover,
                     height: 70,
-                    errorBuilder: (context, error, stackTrace) =>
-                        Image.asset("assets/images/placeholder1.png"),
+                    errorBuilder: (context, error, stackTrace) {
+                      print(article.urlToImage.toString());
+                      return Image.asset("assets/images/placeholder1.png");
+                    },
+                  ), */
+                  child: ExtendedImage.network(
+                    article.urlToImage.toString(),
+                    fit: BoxFit.cover,
+                    cache: true,
+                    height: 70,
+                    loadStateChanged: (state) {
+                      switch (state.extendedImageLoadState) {
+                        case LoadState.loading:
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        case LoadState.completed:
+                          return ExtendedRawImage(
+                            image: state.extendedImageInfo?.image,
+                            fit: BoxFit.cover,
+                          );
+                        case LoadState.failed:
+                          return Center(
+                            child: Image.asset("assets/images/placeholder1.png"),
+                          );
+                      }
+                    },
                   ),
                 ),
               ),
@@ -61,16 +89,16 @@ class ArticleTile extends StatelessWidget {
                         child: Text(
                           article.name.toString(),
                           style: const TextStyle(
-                            fontSize: 18,
+                            fontSize: 17,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
-                      SizedBox(
+                      /* SizedBox(
                         width: MediaQuery.of(context).size.width * 0.55,
                         child: article.author != null
                             ? Text(
-                                article.author.toString(),
+                                'by ' + article.author.toString(),
                                 maxLines: 1,
                                 style: const TextStyle(
                                   fontSize: 12,
@@ -79,12 +107,12 @@ class ArticleTile extends StatelessWidget {
                                 ),
                               )
                             : Container(),
-                      ),
+                      ), */
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.55,
                         child: Text(
                           article.title.toString(),
-                          maxLines: 2,
+                          maxLines: 3,
                           textAlign: TextAlign.left,
                           softWrap: true,
                         ),

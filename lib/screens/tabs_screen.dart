@@ -33,6 +33,7 @@ class _State extends State<TabsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF03071e),
       appBar: AppBar(
         leading: Container(),
         centerTitle: true,
@@ -42,17 +43,24 @@ class _State extends State<TabsScreen> {
         elevation: 0,
         title: const Text(
           'Good News App',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white),
         ),
         
       ),
       body: pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Color(0xFF03071e),
         type: BottomNavigationBarType.fixed,
         onTap: selectTab,
         currentIndex: _selectedIndex,
         showSelectedLabels: false,
         showUnselectedLabels: false,
+        unselectedIconTheme: IconThemeData(
+          color: Colors.white,
+        ),
+        selectedIconTheme: IconThemeData(
+          color: Color(0xFff77f00),
+        ),
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),

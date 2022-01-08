@@ -31,7 +31,13 @@ class ArticleTile extends StatelessWidget {
           width: 1.0,
         ),
       ), */
-      child: GestureDetector(
+      child: InkWell(
+        onTap: () {
+          Navigator.of(context)
+              .pushNamed(ArticleDetailScreen.routePath, arguments: article);
+        },
+        highlightColor: const Color(0xfff77f00),
+        splashColor: const Color(0xfff77f00),
         child: Row(
           children: [
             Padding(
@@ -61,7 +67,9 @@ class ArticleTile extends StatelessWidget {
                       switch (state.extendedImageLoadState) {
                         case LoadState.loading:
                           return const Center(
-                            child: CircularProgressIndicator(),
+                            child: CircularProgressIndicator(
+                              color: Color(0xFff77f00),
+                            ),
                           );
                         case LoadState.completed:
                           return ExtendedRawImage(
@@ -70,7 +78,8 @@ class ArticleTile extends StatelessWidget {
                           );
                         case LoadState.failed:
                           return Center(
-                            child: Image.asset("assets/images/placeholder1.png"),
+                            child:
+                                Image.asset("assets/images/placeholder1.png"),
                           );
                       }
                     },
@@ -125,10 +134,13 @@ class ArticleTile extends StatelessWidget {
             SizedBox(
               child: IconButton(
                 onPressed: () {
-                  Navigator.of(context)
-                      .pushNamed(ArticleDetailScreen.routePath);
+                  Navigator.of(context).pushNamed(ArticleDetailScreen.routePath,
+                      arguments: article);
                 },
-                icon: const Icon(Icons.arrow_forward_ios),
+                icon: const Icon(
+                  Icons.arrow_forward_ios,
+                  color: Color(0xfff77f00),
+                ),
               ),
               width: MediaQuery.of(context).size.width * 0.1,
             ),

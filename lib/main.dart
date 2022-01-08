@@ -36,6 +36,13 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         title: 'Flutter Demo',
         theme: ThemeData(
+          textTheme: Theme.of(context).textTheme.apply(
+                bodyColor: Colors.white,
+                fontFamily: 'Montserrat',
+              ),
+          primaryColor: const Color(0xFFF8F8F8),
+          indicatorColor: const Color(0xfff77f00),
+          backgroundColor: const Color(0xFF03071e),
           primarySwatch: Colors.blue,
         ),
       ),

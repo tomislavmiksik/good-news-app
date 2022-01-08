@@ -11,7 +11,7 @@ class ArticleProvider with ChangeNotifier {
   String? urlToImage;
   String? publishedAt;
   String? content;
-  bool isFavorite;
+  bool saved;
 
   ArticleProvider({
     required this.id,
@@ -24,11 +24,11 @@ class ArticleProvider with ChangeNotifier {
     required this.urlToImage,
     required this.publishedAt,
     this.content,
-    this.isFavorite = false,
+    this.saved = false,
   });
 
   void toggleFavorite() {
-    isFavorite = !isFavorite;
+    saved = !saved;
     notifyListeners();
   }
 

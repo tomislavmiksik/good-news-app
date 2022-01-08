@@ -80,8 +80,13 @@ class _CategoryBadgeState extends State<CategoryBadge> {
         child: Text(
           categoriesMap[loadedCat].toString(),
           style: selectedCat == loadedCat
-              ? const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)
-              : const TextStyle(color: Colors.white),
+              ? const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                )
+              : const TextStyle(
+                  color: Colors.white60,
+                ),
         ),
       ),
     );

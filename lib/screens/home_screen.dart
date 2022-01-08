@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   late final List<String> _categories = [];
 
   var _isLoading = false;
-  String currentCategory = 'entertainment';
+  String currentCategory = 'sports';
 
   @override
   void dispose() {
@@ -36,7 +36,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return _isLoading
         ? const Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              color: Color(0xFFf77f00),
+            ),
           )
         : Column(
             children: [
@@ -45,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: MediaQuery.of(context).size.width,
                 child: ListView.builder(
                   itemBuilder: (ctx, index) {
-                    return CategoryBadge(_categories[index] ,currentCategory );
+                    return CategoryBadge(_categories[index], currentCategory);
                   },
                   itemCount: _categories.length,
                   scrollDirection: Axis.horizontal,
@@ -85,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
         _isLoading = true;
       },
     );
-    
+
     final newsApiServiceProvider =
         Provider.of<NewsApiService>(context, listen: false);
 
@@ -121,7 +123,6 @@ class _HomeScreenState extends State<HomeScreen> {
         }
       },
     );
-
 
     if (mounted) {
       setState(() {

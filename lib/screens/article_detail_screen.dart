@@ -25,6 +25,13 @@ class ArticleDetailScreen extends StatelessWidget {
         ),
         elevation: 0,
       ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: const Color(0xfff77f00),
+        onPressed: () {
+          openWebPage(article);
+        },
+        child: const Icon(Icons.open_in_new),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -83,38 +90,9 @@ class ArticleDetailScreen extends StatelessWidget {
             const Divider(
               color: Color(0xfff77f00),
             ),
-            article.description != null
-                ? Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Text(
-                      article.description.toString(),
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                      ),
-                      textAlign: TextAlign.left,
-                    ),
-                  )
-                : Container(),
             InkWell(
               onTap: () {
-                FlutterWebBrowser.openWebPage(
-                  url: article.url.toString(),
-                  customTabsOptions: const CustomTabsOptions(
-                    shareState: CustomTabsShareState.on,
-                    instantAppsEnabled: true,
-                    showTitle: true,
-                    urlBarHidingEnabled: true,
-                  ),
-                  safariVCOptions: const SafariViewControllerOptions(
-                    barCollapsingEnabled: true,
-                    preferredBarTintColor: Colors.green,
-                    preferredControlTintColor: Colors.amber,
-                    dismissButtonStyle:
-                        SafariViewControllerDismissButtonStyle.close,
-                    modalPresentationCapturesStatusBarAppearance: true,
-                  ),
-                );
+                openWebPage(article);
               },
               child: Container(
                 padding: const EdgeInsets.all(15.0),
@@ -129,8 +107,51 @@ class ArticleDetailScreen extends StatelessWidget {
                 ),
               ),
             ),
+            article.description != null
+                ? Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Text(
+                      article.description.toString(),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                  )
+                : Container(),
+            article.content != null ? Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Text(
+                article.content.toString(),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                ),
+                textAlign: TextAlign.left,
+              ),
+            ) : Container(),
           ],
         ),
+      ),
+    );
+  }
+
+  openWebPage(article) {
+    FlutterWebBrowser.openWebPage(
+      url: article.url.toString(),
+      customTabsOptions: const CustomTabsOptions(
+        shareState: CustomTabsShareState.on,
+        instantAppsEnabled: true,
+        showTitle: true,
+        urlBarHidingEnabled: true,
+      ),
+      safariVCOptions: const SafariViewControllerOptions(
+        barCollapsingEnabled: true,
+        preferredBarTintColor: Colors.green,
+        preferredControlTintColor: Colors.amber,
+        dismissButtonStyle: SafariViewControllerDismissButtonStyle.close,
+        modalPresentationCapturesStatusBarAppearance: true,
       ),
     );
   }

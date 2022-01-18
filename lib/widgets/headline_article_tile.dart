@@ -22,7 +22,7 @@ class HeadlineArticleTile extends StatelessWidget {
         alignment: Alignment.center,
         children: [
           Container(
-            height: MediaQuery.of(context).size.height * 0.19,
+            height: MediaQuery.of(context).size.height ,
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: ClipRRect(
@@ -32,7 +32,7 @@ class HeadlineArticleTile extends StatelessWidget {
                 cache: true,
                 enableMemoryCache: true,
                 shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(6),
                 loadStateChanged: (state) {
                   switch (state.extendedImageLoadState) {
                     case LoadState.loading:

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/providers/article_array_provider.dart';
 import 'package:news_app/screens/article_detail_screen.dart';
+import 'package:news_app/screens/categories_screen.dart';
 import 'package:news_app/screens/home_screen.dart';
 import 'package:news_app/screens/profile_screen.dart';
 import 'package:news_app/screens/tabs_screen.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (ctx) => const TabsScreen(),
           HomeScreen.routePath: (ctx) => HomeScreen(),
+          CategoriesScreen.routePath : (ctx) => CategoriesScreen(),
           ProfileScreen.routePath: (ctx) => ProfileScreen(),
           ArticleDetailScreen.routePath: (ctx) => ArticleDetailScreen(),
         },

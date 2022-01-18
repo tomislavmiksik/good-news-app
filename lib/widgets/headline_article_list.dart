@@ -24,7 +24,7 @@ class _HeadlineArticleListState extends State<HeadlineArticleList> {
         Provider.of<NewsApiService>(context, listen: false);
 
 
-    var url = newsApiServiceProvider.topHeadlinesUrl;
+    var url = newsApiServiceProvider.topHeadlinesUrl('sports');
 
     http.get(url).then(
       (value) {

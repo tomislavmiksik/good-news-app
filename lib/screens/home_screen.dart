@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:news_app/providers/article_array_provider.dart';
@@ -7,6 +8,7 @@ import 'package:news_app/services/news_api_service.dart';
 import 'package:news_app/widgets/article_tile.dart';
 import 'package:news_app/widgets/category_badge.dart';
 import 'package:news_app/widgets/headline_article_list.dart';
+import 'package:news_app/widgets/headline_article_tile.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -23,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   late final List<String> _categories = [];
 
   var _isLoading = false;
-  String currentCategory = 'sports';
+  String currentCategory = 'general';
 
   @override
   void dispose() {
@@ -40,34 +42,20 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Color(0xFFf77f00),
             ),
           )
-        : Column(
+        /* : Column(
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.07,
-                width: MediaQuery.of(context).size.width,
-                child: ListView.builder(
-                  itemBuilder: (ctx, index) {
-                    return CategoryBadge(_categories[index], currentCategory);
-                  },
-                  itemCount: _categories.length,
-                  scrollDirection: Axis.horizontal,
-                ),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.267 -
+                height: MediaQuery.of(context).size.height * 0.337 -
                     kBottomNavigationBarHeight -
                     MediaQuery.of(context).padding.top,
                 child: HeadlineArticleList(),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.60 -
+                height: MediaQuery.of(context).size.height * 0.595 -
                     kBottomNavigationBarHeight -
                     MediaQuery.of(context).padding.top,
                 child: ListView.builder(
                   itemBuilder: (BuildContext context, int index) {
-/*               print(_articles[index].title.toString() +
-                        ' ' +
-                        _articles[index].url.toString()); */
                     return ChangeNotifierProvider.value(
                       value: _articles[index],
                       child: ArticleTile(),
@@ -77,6 +65,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ],
+          ); */
+        : ListView.builder(
+            itemBuilder: (context, index) {
+              return Container(
+                height: MediaQuery.of(context).size.height * 0.25,
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: HeadlineArticleTile(
+                  article: _articles[index],
+                ),
+              );
+            },
+            itemCount: _articles.length,
           );
   }
 
@@ -93,12 +93,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
     _categories.addAll(newsApiServiceProvider.categoriesList);
 
-    var url = newsApiServiceProvider.everythingUrl('technology');
-
+    var url = newsApiServiceProvider.topHeadlinesUrlPrimary;
     http.get(url).then(
       (value) {
         _data.addAll(json.decode(value.body)['articles']);
-
         for (var element in _data) {
           _articles.add(
             ArticleProvider(
@@ -124,11 +122,40 @@ class _HomeScreenState extends State<HomeScreen> {
       },
     );
 
-    if (mounted) {
-      setState(() {
-        _isLoading = false;
-      });
+    for (var element in _categories) {
+      print(element);
+      var url = newsApiServiceProvider.topHeadlinesUrl(element);
+      print(url);
+
+      http.get(url).then(
+        (value) {
+          _data.addAll(json.decode(value.body)['articles']);
+          for (var element in _data) {
+            for (var article in _articles) {
+              print(article);
+              if (article.id == element['source']['id']) {
+                return;
+              } else {
+                _articles.add(
+                  ArticleProvider(
+                    title: element['title'],
+                    description: element['description'],
+                    urlToImage: element['urlToImage'],
+                    url: element['url'],
+                    author: element['author'],
+                    publishedAt: element['publishedAt'],
+                    source: element['source'],
+                    name: element['source']['name'],
+                    id: element['source']['id'],
+                  ),
+                );
+              }
+            }
+          }
+        },
+      );
     }
+    print(_articles.length);
     //print(_data.length);
     super.initState();
   }

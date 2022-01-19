@@ -53,10 +53,10 @@ class _State extends State<TabsScreen> {
         shadowColor: Colors.transparent,
         foregroundColor: Colors.transparent,
         elevation: 0,
-        title: const Text(
+        title: _selectedIndex == 0 ? const Text(
           'Welcome back Geoff!',
           style: TextStyle(color: Colors.white),
-        ),
+        ) : null,
       ),
       body: pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(

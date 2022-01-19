@@ -21,7 +21,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late final List<dynamic> _data = [];
-  late final List<ArticleProvider> _articles = [];
+  late List<ArticleProvider> _articles = [];
   late final List<String> _categories = [];
 
   var _isLoading = false;
@@ -93,9 +93,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
     _categories.addAll(newsApiServiceProvider.categoriesList);
 
-    var url = newsApiServiceProvider.topHeadlinesUrlPrimary;
-    http.get(url).then(
-      (value) {
+    for (var element in _categories) {
+      print(element);
+      var url = newsApiServiceProvider.topHeadlinesUrl(element);
+      print(url);
+
+      http.get(url).then((value) {
+        _data.clear();
+        print(json.decode(value.body)['code']);
+        if(json.decode(value.body)[0] == null) return;
         _data.addAll(json.decode(value.body)['articles']);
         for (var element in _data) {
           _articles.add(
@@ -112,51 +118,19 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           );
         }
-        if (mounted) {
-          setState(
-            () {
-              _isLoading = false;
-            },
-          );
-        }
-      },
-    );
+      }).then(
+        (value) => setState(
+          () {
+            _articles = _articles.toSet().toList();
 
-    for (var element in _categories) {
-      print(element);
-      var url = newsApiServiceProvider.topHeadlinesUrl(element);
-      print(url);
-
-      http.get(url).then(
-        (value) {
-          _data.addAll(json.decode(value.body)['articles']);
-          for (var element in _data) {
-            for (var article in _articles) {
-              print(article);
-              if (article.id == element['source']['id']) {
-                return;
-              } else {
-                _articles.add(
-                  ArticleProvider(
-                    title: element['title'],
-                    description: element['description'],
-                    urlToImage: element['urlToImage'],
-                    url: element['url'],
-                    author: element['author'],
-                    publishedAt: element['publishedAt'],
-                    source: element['source'],
-                    name: element['source']['name'],
-                    id: element['source']['id'],
-                  ),
-                );
-              }
-            }
-          }
-        },
+            _isLoading = false;
+          },
+        ),
       );
     }
+
     print(_articles.length);
-    //print(_data.length);
+    _articles = _articles.toSet().toList();
     super.initState();
   }
 }

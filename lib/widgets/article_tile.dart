@@ -13,7 +13,7 @@ class ArticleTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ArticleProvider article =
-        Provider.of<ArticleProvider>(context, listen: false, );
+        Provider.of<ArticleProvider>(context);
 
     Widget checkUrl(String url) {
       try {

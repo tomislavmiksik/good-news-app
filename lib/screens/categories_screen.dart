@@ -18,11 +18,9 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   @override
   Widget build(BuildContext context) {
     
-
     return ListView.builder(
-
       itemBuilder: (BuildContext context, index) {
-        return InheritedProvider(
+        return ListenableProvider(
           create: (BuildContext context) => _articles[index],
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 10),

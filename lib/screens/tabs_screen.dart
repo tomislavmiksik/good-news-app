@@ -19,6 +19,7 @@ class _State extends State<TabsScreen> {
   int _selectedIndex = 0;
   late List<dynamic> pages = [];
   late List<dynamic> appBars = [];
+  
   @override
   void initState() {
     pages = [

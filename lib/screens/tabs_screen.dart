@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:news_app/appbars/categories_appbar.dart';
+import 'package:news_app/appbars/home_appbar.dart';
+import 'package:news_app/appbars/profile_appbar.dart';
 import 'package:news_app/screens/categories_screen.dart';
 import 'package:news_app/screens/profile_screen.dart';
 
@@ -15,13 +18,24 @@ class TabsScreen extends StatefulWidget {
 class _State extends State<TabsScreen> {
   int _selectedIndex = 0;
   late List<dynamic> pages = [];
-
+  late List<dynamic> appBars = [];
   @override
   void initState() {
     pages = [
       HomeScreen(),
       CategoriesScreen(),
       ProfileScreen(),
+    ];
+    appBars = [
+      HomeAppBar(
+        key: Key('home'),
+      ),
+      CategoriesAppBar(
+        key: Key('categories'),
+      ),
+      ProfileAppBar(
+        key: Key('profile'),
+      ),
     ];
     super.initState();
   }
@@ -36,29 +50,9 @@ class _State extends State<TabsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF03071e),
-      floatingActionButton: _selectedIndex == 0
-          ? FloatingActionButton(
-              onPressed: () {},
-              child: const Icon(
-                Icons.refresh,
-                color: Colors.white,
-              ),
-              backgroundColor: const Color(0xFff77f00),
-            )
-          : null,
-      appBar: AppBar(
-        leading: Container(),
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        shadowColor: Colors.transparent,
-        foregroundColor: Colors.transparent,
-        elevation: 0,
-        title: _selectedIndex == 0 ? const Text(
-          'Welcome back Geoff!',
-          style: TextStyle(color: Colors.white),
-        ) : null,
-      ),
+      appBar: appBars[_selectedIndex],
       body: pages[_selectedIndex],
+
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: const Color(0xFF03071e),
         type: BottomNavigationBarType.fixed,

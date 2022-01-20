@@ -22,7 +22,7 @@ class HeadlineArticleTile extends StatelessWidget {
         alignment: Alignment.center,
         children: [
           Container(
-            height: MediaQuery.of(context).size.height ,
+            height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: ClipRRect(
@@ -37,7 +37,9 @@ class HeadlineArticleTile extends StatelessWidget {
                   switch (state.extendedImageLoadState) {
                     case LoadState.loading:
                       return const Center(
-                        child: CircularProgressIndicator(),
+                        child: CircularProgressIndicator(
+                          color: Color(0xfff77f00),
+                        ),
                       );
                     case LoadState.completed:
                       return ExtendedRawImage(
@@ -64,7 +66,10 @@ class HeadlineArticleTile extends StatelessWidget {
               margin: const EdgeInsets.all(10),
               child: Text(
                 article.title.toString(),
-                style: const TextStyle(fontSize: 15, color: Colors.white),
+                style: const TextStyle(
+                    fontSize: 15,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
                 softWrap: true,
               ),
             ),

@@ -18,10 +18,14 @@ class ProfileScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: const [
                 CircleAvatar(
-                  backgroundImage: AssetImage('assets/images/geoff.jpg'),
+                  backgroundImage: AssetImage(
+                    'assets/images/geoff.jpg',
+                  ),
                   radius: 75,
                 ),
-                SizedBox(height: 20),
+                SizedBox(
+                  height: 20,
+                ),
                 Text(
                   'Geoffrey Bayzose',
                   style: TextStyle(
@@ -32,8 +36,9 @@ class ProfileScreen extends StatelessWidget {
                 Text(
                   '@bigGeoffTheAmazonian',
                   style: TextStyle(
+                    color: Color(0xFFf77f00),
                     fontSize: 20,
-                    fontStyle: FontStyle.italic
+                    fontStyle: FontStyle.italic,
                   ),
                 ),
               ],

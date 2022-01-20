@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/providers/article_array_provider.dart';
+import 'package:news_app/providers/article_provider.dart';
 import 'package:news_app/screens/article_detail_screen.dart';
 import 'package:news_app/screens/categories_screen.dart';
 import 'package:news_app/screens/home_screen.dart';
@@ -23,15 +24,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(
           value: NewsApiService(),
         ),
-/*         ChangeNotifierProvider(
-          create: (ctx) => ArticleArrayProvider(ctx),
-        ), */
       ],
       child: MaterialApp(
         routes: {
           '/': (ctx) => const TabsScreen(),
           HomeScreen.routePath: (ctx) => HomeScreen(),
-          CategoriesScreen.routePath : (ctx) => CategoriesScreen(),
+          CategoriesScreen.routePath: (ctx) => CategoriesScreen(),
           ProfileScreen.routePath: (ctx) => ProfileScreen(),
           ArticleDetailScreen.routePath: (ctx) => ArticleDetailScreen(),
         },

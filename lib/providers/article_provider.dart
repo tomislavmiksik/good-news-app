@@ -27,7 +27,7 @@ class ArticleProvider with ChangeNotifier {
     this.saved = false,
   });
 
-  void toggleFavorite() {
+  void toggleSaved() {
     saved = !saved;
     notifyListeners();
   }

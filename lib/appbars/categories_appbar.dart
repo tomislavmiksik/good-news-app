@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 
-class ProfileAppBar extends StatefulWidget implements PreferredSizeWidget {
-  ProfileAppBar({required Key key})
+class CategoriesAppBar extends StatefulWidget implements PreferredSizeWidget {
+  CategoriesAppBar({required Key key})
       : preferredSize = const Size.fromHeight(kToolbarHeight),
         super(key: key);
 
   @override
-  State<ProfileAppBar> createState() => _ProfileAppBarState();
+  State<CategoriesAppBar> createState() => _CategoriesAppbarState();
 
   @override
   final preferredSize;
 }
 
-class _ProfileAppBarState extends State<ProfileAppBar> {
+class _CategoriesAppbarState extends State<CategoriesAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      title: const Text('Welcome back Geoffrey'),
       backgroundColor: Colors.transparent,
       shadowColor: Colors.transparent,
     );

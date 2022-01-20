@@ -7,10 +7,13 @@ import 'package:news_app/screens/article_detail_screen.dart';
 import 'package:provider/provider.dart';
 
 class ArticleTile extends StatelessWidget {
+  ArticleTile({Key? key, required ArticleProvider article})
+      : super(key: key);
+  
   @override
   Widget build(BuildContext context) {
     final ArticleProvider article =
-        Provider.of<ArticleProvider>(context, listen: false);
+        Provider.of<ArticleProvider>(context, listen: false, );
 
     Widget checkUrl(String url) {
       try {
@@ -25,12 +28,6 @@ class ArticleTile extends StatelessWidget {
       alignment: Alignment.center,
       width: MediaQuery.of(context).size.width,
       height: 100,
-      /* decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.grey,
-          width: 1.0,
-        ),
-      ), */
       child: InkWell(
         onTap: () {
           Navigator.of(context)
@@ -47,17 +44,6 @@ class ArticleTile extends StatelessWidget {
                 //clipBehavior: Clip.hardEdge,
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width * 0.25,
-
-                  //not a perfect solution, but it works
-                  /* child: Image.network(
-                    article.urlToImage.toString(),
-                    fit: BoxFit.cover,
-                    height: 70,
-                    errorBuilder: (context, error, stackTrace) {
-                      print(article.urlToImage.toString());
-                      return Image.asset("assets/images/placeholder1.png");
-                    },
-                  ), */
                   child: ExtendedImage.network(
                     article.urlToImage.toString(),
                     fit: BoxFit.cover,
@@ -103,20 +89,6 @@ class ArticleTile extends StatelessWidget {
                           ),
                         ),
                       ),
-                      /* SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.55,
-                        child: article.author != null
-                            ? Text(
-                                'by ' + article.author.toString(),
-                                maxLines: 1,
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w300,
-                                  color: Colors.black87,
-                                ),
-                              )
-                            : Container(),
-                      ), */
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.55,
                         child: Text(
@@ -133,6 +105,22 @@ class ArticleTile extends StatelessWidget {
             ),
             SizedBox(
               child: IconButton(
+                icon: article.saved
+                    ? const Icon(
+                        Icons.favorite,
+                        color: Color(0xfff77f00),
+                      )
+                    : const Icon(
+                        Icons.favorite_border,
+                        color: Color(0xfff77f00),
+                      ),
+                onPressed: () {
+                  article.toggleSaved();
+                },
+              ),
+            ),
+            /* SizedBox(
+              child: IconButton(
                 onPressed: () {
                   Navigator.of(context).pushNamed(ArticleDetailScreen.routePath,
                       arguments: article);
@@ -143,7 +131,7 @@ class ArticleTile extends StatelessWidget {
                 ),
               ),
               width: MediaQuery.of(context).size.width * 0.1,
-            ),
+            ), */
           ],
         ),
       ),

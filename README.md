@@ -1,4 +1,4 @@
-# good_news_app
+# good_news_app [very much WIP]
 
 A News App concept using [NewsAPI](https://newsapi.org/)
 
